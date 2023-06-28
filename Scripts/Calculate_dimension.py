@@ -12,17 +12,18 @@ aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_5X5_50)
 #Load Object Detector
 detector = HomogeneousBgDetector()
 #Load the image
-img = cv2.imread("../Images/Slab(6).jpg")
+img = cv2.imread("../Images/a(1).jpg")
 #Get Aruco marker
 corners,_,_ = cv2.aruco.detectMarkers(img, aruco_dict, parameters=parameters)
+
 # Aruco Perimeter
 aruco_perimeter = cv2.arcLength(corners[0], True)
 # Pixel to cm ratio
-pixel_cm_ratio = aruco_perimeter / 200
+pixel_cm_ratio = aruco_perimeter / 400
 
 #Draw Polygon around marker
 int_conners = np.intp(corners)
-cv2.polylines(img,int_conners,True, (235,255,0),5)
+cv2.polylines(img,int_conners,True, (235,255,0),3)
 contours = detector.detect_objects(img)
 cv2.namedWindow('image1', cv2.WINDOW_NORMAL)
 cv2.imshow("image1",img)
@@ -40,10 +41,10 @@ for cnt in contours:
 
     #Display rectangle
     box = cv2.boxPoints(rect)
-    box = np.intp(box) # array contains 4 coordinates of 4 corners [[489 529][667  66][898 154] [720 618]]
+    box = np.intp(box) # array contains 4 coordinates of 4 corners
     # Draw polygons
     cv2.circle(img, (int(x), int(y)), 5, (0, 0, 255), -2)
-    cv2.polylines(img, [box], True, (255, 126, 0), 5)
+    cv2.polylines(img, [box], True, (255, 126, 0), 3)
     cv2.namedWindow('img2', cv2.WINDOW_NORMAL)
     cv2.imshow("img2", img)
     print(object_height)
